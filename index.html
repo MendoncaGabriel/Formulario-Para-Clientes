@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Formulário de orçamento</title>
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="shortcut icon" href="img/icons8-fill-in-form-96.png" type="image/x-icon">
+    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-storage-compat.js"></script>
+
+
+
+
+</head>
+
+<body class="bg-gray-100">
+    <div class="items-center justify-center fixed w-screen hidden" id="load">    
+        <img src="img/icons8-loading-sign-100.png" alt="load" class="animate-spin bg-white rounded-full w-20">
+    </div>
+
+    <p class="px-5 py-3 rounded-md font-bold hidden bg-green-200 fixed left-5 top-5 text-green-900" id="alertaEnvio">
+        Formulário enviado com sucesso!
+    </p>
+    
+      
+      
+
+    <div class="container mx-auto md:p-8 p-5 pt-10  md:mt-8 bg-white rounded-lg shadow-md md:max-w-3xl ">
+        <h1 class="text-2xl text-center mb-4 font-bold">Solicitação de orçamento</h1>
+
+        <form class=" p-5" id="meuFormulario">
+            <label class="block font-bold mb-2" for="contato"> * Nome e Sobrenome:</label>
+            <input required class="mb-5 w-full p-2 border rounded" type="text" id="contato" name="contato" placeholder="Ex: João Carlos" >
+
+            <label required class="block font-bold mb-2" for="telefone">* Número de Telefone:</label>
+            <input class="mb-5 w-full p-2 border rounded" type="tel" id="telefone" name="telefone" placeholder="Ex: (92) 88888-8888">
+            
+            <label class="block font-bold mb-2" for="nomeEmpresa">Nome da Empresa / Projeto:</label>
+            <input class="mb-5 w-full p-2 border rounded" type="text" id="nomeEmpresa" name="nomeEmpresa" placeholder="Ex: Soluções InovaTec  ">
+
+            <label class="block font-bold mb-2" for="ramoAtuacao">Ramo de Atuação:</label>
+            <input type="text" list="opcoes" id="ramoAtuacao" name="ramoAtuacao" class="mb-5 w-full p-2 border rounded" placeholder="saude, educacao, moda...">
+
+            <datalist id="opcoes">
+                <option value="tecnologia">                                                 
+                    <option value="saude">                                            
+                    <option value="educacao">                                               
+                    <option value="alimentacao">                                                  
+                    <option value="moda">                                           
+                    <option value="beleza">                                             
+                    <option value="construcao">                                                 
+                    <option value="automotivo">                                                 
+                    <option value="arte">                                           
+                    <option value="musica">                                             
+                    <option value="esporte">                                              
+                    <option value="turismo">                                              
+                    <option value="design">                                             
+                    <option value="meio_ambiente">                                                    
+                    <option value="marketing">                                                
+                    <option value="financas">                                               
+                    <option value="varejo">                                             
+                    <option value="energia">                                              
+                    <option value="telecomunicacoes">                                                       
+                    <option value="entretenimento">                                                     
+                    <option value="agricultura">                                                  
+                    <option value="manufatura">                                                 
+                    <option value="logistica">                                                
+                    <option value="teatro">                                             
+                    <option value="cinema">                                             
+                    <option value="jogos">                                            
+                    <option value="tecnologia_educacional">                                                             
+                    <option value="nutricao">                                               
+                    <option value="restaurante">                                                  
+                    <option value="redes_sociais">                                                    
+                    <option value="saude_mental">                                                   
+                    <option value="odontologia">                                                  
+                    <option value="medicina">                                               
+                    <option value="arquitetura">                                                  
+                    <option value="engenharia">                                                 
+                    <option value="iot">                                                                
+                    <option value="educacao_online">                                                      
+                    <option value="culinaria">                                                
+                    <option value="cosmeticos">                                                 
+                    <option value="tecnologia_saude">                                                          
+                    <option value="bem_estar">                                                
+                    <option value="desenvolvimento_pessoal">                                                              
+                    <option value="sustentabilidade">                                                       
+                    <option value="financeiro">                                                       
+                    <option value="vestuario">                                                
+                    <option value="calcados">                                               
+                    <option value="esportes">                                               
+                    <option value="viagens">                                              
+                    <option value="arquitetura_interiores">                                                                
+                    <option value="design_grafico">                                                     
+                    <option value="educacao_infantil">                                                        
+                    <option value="agroindustria">                                                    
+                    <option value="tecnologia_comunicacao">                                                                
+                    <option value="musica_ao_vivo">                                                     
+                    <option value="esportes_radicias">                                                        
+                    <option value="ecommerce">                                                 
+                    <option value="fotografia">                                                 
+                    <option value="saude_fisica">                                                   
+                    <option value="nutricao_esportiva">                                                         
+                    <option value="terapia">                                              
+                    <option value="engenharia_ambiental">                                                           
+                    <option value="teatro_musical">                                                     
+                    <option value="tecnologia_automotiva">                                                            
+                    <option value="design_moda">                                                     
+                    <option value="lazer">                                            
+                    <option value="alimentacao_saudavel">                                                           
+                    <option value="psicologia">                                                 
+                    <option value="oftalmologia">                                                   
+                    <option value="tecnologia_construcao">                                                               
+                    <option value="estetica">                                               
+                    <option value="arqueologia">                                                  
+                    <option value="tecnologia_renovavel">                                                           
+                    <option value="consultoria_negocios">                                                              
+                    <option value="treinamento_fitness">                                                            
+                    <option value="turismo_aventura">                                                          
+                    <option value="arquitetura_paisagismo">                                                             
+                    <option value="audiovisual">                                                           
+                    <option value="saude_alternativa">                                                        
+                    <option value="medicina_preventiva">                                                          
+                    <option value="tecnologia_industrial">                                                            
+                    <option value="design_interiores">                                                           
+                    <option value="educacao_artistica">                                                         
+                    <option value="agricultura_organica">                                                           
+                    <option value="tecnologia_internet">                                                             
+                    <option value="arte_culinaria">                                                     
+                    <option value="beleza_natural">                                                     
+                    <option value="tecnologia_saude_mental">                                                                   
+                    <option value="moda_sustentavel">                                                       
+                    <option value="entretenimento_digital">                                                             
+                    <option value="desenvolvimento_sustentavel">                                                                  
+                    <option value="investimentos">                                                    
+                    <option value="joalheria">                                                
+                    <option value="engenharia_civil">                                                       
+                    <option value="iot_industrial">                                                                     
+                    <option value="educacao_distancia">                                                           
+                    <option value="culinaria_gourmet">                                                        
+                    <option value="cosmeticos_naturais">                                                          
+                    <option value="tecnologia_saude_bem_estar">                                                                        
+                    <option value="coaching">                                               
+                    <option value="energia_renovavel">                                                        
+                    <option value="telemedicina">                                                   
+                    <option value="design_produto">                                                        
+                    <option value="educacao">                                               
+                    <option value="joias">                                            
+                    <option value="ecommerce_moda">                                                         
+                    <option value="tecnologia_educacao">                                                             
+                    <option value="saude_infantil">                                                     
+                    <option value="gastronomia">                                                  
+                    <option value="tecnologia_saude_fisica">                                                                   
+                    <option value="transporte">                                                 
+                    <option value="engenharia_mecanica">                                                          
+                    <option value="realidade_virtual">                                                        
+                    <option value="nutricao_vegetariana">                                                           
+                    <option value="medicina_integrativa">                                                           
+                    <option value="tecnologia_energia">                                                            
+                    <option value="gestao_negocios">                                                         
+                    <option value="culinaria_vegana">                                                       
+                    <option value="produtos_naturais">                                                        
+                    <option value="tecnologia_saude_alternativa">                                                                        
+                    <option value="consultoria">                                                  
+                    <option value="energia_solar">                                                    
+                    <option value="psicanalise">                                                  
+                    <option value="engenharia_eletrica">                                                          
+                    <option value="inteligencia_artificial">                                                              
+                    <option value="fitness">                                              
+                    <option value="turismo_cultural">                                                       
+                    <option value="decoracao">                                                
+                    <option value="meio_ambiente">                                                    
+                    <option value="psicoterapia">                                                   
+                    <option value="engenharia_software">                                                             
+                    <option value="tecnologia_rede_social">                                                                
+                    <option value="design_industrial">                                                        
+                    <option value="treinamento_corporativo">                                                              
+                    <option value="turismo_ecologico">                                                        
+                    <option value="mobiliario">                                                 
+                    <option value="energia_eolica">                                                     
+                    <option value="educao_inclusiva">                                                         
+                    <option value="medicina_esportiva">                                                         
+                    <option value="desenvolvimento_web">                                                          
+                    <option value="marketing_digital">                                                        
+                    <option value="tecnologia_alimentacao">                                                                
+                    <option value="psicologia_infantil">                                                          
+                    <option value="engenharia_automacao">                                                              
+                    <option value="realidade_aumentada">                                                          
+                    <option value="danca">                                            
+                    <option value="turismo_adaptado">                                                       
+                    <option value="arquitetura_hospitalar">                                                             
+                    <option value="energia_hidrica">                                                      
+                    <option value="educao_especial">                                                        
+                    <option value="psicologia_organizacional">                                                                
+                    <option value="engenharia_aeroespacial">                                                              
+                    <option value="tecnologia_varejo">                                                           
+                    <option value="teatro_educacional">                                                         
+                    <option value="moda_infantil">                                                    
+                    <option value="tecnologia_agricultura">                                                                
+                    <option value="terapia_ocupacional">                                                          
+                    <option value="engenharia_biomedica">                                                           
+                    <option value="design_ux_ui">                                                      
+                    <option value="saude_nutricao">                                                       
+                    <option value="engenharia_aeronautica">                                                             
+                    <option value="tecnologia_fintech">                                                            
+                    <option value="educacao_corporativa">                                                           
+                    <option value="moda_sports">                                                     
+                    <option value="agricultura_urbana">                                                         
+                    <option value="terapia_familiar">                                                       
+                    <option value="engenharia_quimica">                                                         
+                    <option value="design_ambiental">                                                       
+                    <option value="saude_mental_infantil">                                                            
+                    <option value="engenharia_biotecnologia">                                                                  
+                    <option value="tecnologia_saude_medica">                                                                   
+                    <option value="moda_luxo">                                                   
+                    <option value="reciclagem">                                                 
+                    <option value="terapia_individual">                                                         
+                    <option value="engenharia_genetica">                                                          
+                    <option value="design_mobilidade">                                                           
+                    <option value="saude_publica">                                                    
+                    <option value="iot_saude">                                                                   
+                    <option value="moda_eco">                                                     
+                    <option value="tecnologia_saude_telemedicina">                                                                           
+                    <option value="tecnologia_varejo">                                                           
+                    <option value="sustentabilidade_empresarial">                                                                   
+                    <option value="moda_vintage">                                                   
+                    <option value="tecnologia_saude_dispositivos">                                                                           
+                    <option value="industria_alimenticia">                                                            
+                    <option value="tecnologia_espacial">                                                          
+                    <option value="cultura">                                              
+                    <option value="tecnologia_saude_telemetria">                                                                         
+                    <option value="cultivo_hidroponico">                                                          
+                    <option value="tecnologia_agua">                                                         
+                    <option value="educacao_tecnologica">                                                           
+            </datalist>
+
+
+       
+
+            <label class="block font-bold mb-2" for="email">Endereço de E-mail:</label>
+            <input class="mb-5 w-full p-2 border rounded" type="email" id="email" name="email" placeholder="Ex:meuemail@gmail.com">
+
+
+
+            <label class="block font-bold mb-2">* Você já possui um domínio registrado?</label>
+            <div class="flex items-center mb-4">
+                <input class="mb-5 mr-2" type="radio" id="dominioSim" name="dominio" value="sim" >
+                <label for="dominioSim">Sim</label>
+                <input class="mb-5 ml-4" type="radio" id="dominioNao" name="dominio" value="nao" checked>
+                <label for="dominioNao">Não</label>
+            </div>
+
+            <label class="block font-bold mb-2" for="logotipo">Você possui um logotipo?</label>
+            <input class="mb-5 w-full p-2 border rounded" type="file" id="logotipo" name="logotipo">
+
+            <label class="block font-bold mb-2" for="conteudo">Você possui conteúdo para o site?</label>
+            <textarea class="mb-5 w-full p-2 border rounded" id="conteudo" name="conteudo" rows="4" placeholder="Imagem, vídeos, preços, texto sobre os produtos, informações, contato..."></textarea>
+
+            <label class="block font-bold mb-2" for="funcionalidades">Quais funcionalidades específicas você gostaria de ter no site?</label>
+            <textarea class="mb-5 w-full p-2 border rounded" id="funcionalidades" name="funcionalidades" rows="4" placeholder="Ex: 
+Sistema de Login e Registro de Usuários,
+Página de Produtos/Serviços,  
+Formulário de Inscrição ou Pedidos
+"></textarea>
+
+            <label class="block font-bold mb-2" for="referencias">Você possui algum site de referência?</label>
+            <textarea class="mb-5 w-full p-2 border rounded" id="referencias" name="referencias" rows="4" placeholder="Ex: http://LinkDoSite.com"></textarea>
+
+            <label class="block font-bold mb-2" for="prazo">Existe um prazo específico para a conclusão do projeto?</label>
+            <input class="mb-5 w-full p-2 border rounded" type="text" id="prazo" name="prazo" placeholder="Ex: 30 dias || Sujeito a avaliação!">
+
+            <label class="block font-bold mb-2" for="observacoes">Outras Observações:</label>
+            <textarea class="mb-5 w-full p-2 border rounded" id="observacoes" name="observacoes" rows="4"></textarea>
+
+            <button id="botaoEnviar" class="border m-auto block text-black bg-blue-500 hover:bg-blue-600 hover:text-white py-2 px-6 rounded font-bold" type="submit">Enviar</button>
+        </form>
+
+    </div>
+</body>
+</html>
+
+<script src="firebase.js"></script>
